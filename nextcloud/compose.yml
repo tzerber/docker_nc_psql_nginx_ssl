@@ -1,0 +1,77 @@
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data:Z
+    env_file:
+      - db.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+
+  app:
+    build: ./app
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    volumes:
+      - nextcloud:/var/www/html
+      - ./opcache-recommed.ini:/usr/local/etc/php/conf.d/opcache-recommended.ini
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_HOST=redis
+      - PHP_MEMORY_LIMIT=1024M
+    env_file:
+      - db.env
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    hostname: web
+    container_name: nextcloud_web #this is the name that will be used in the proxy as target.
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    volumes:
+      - nextcloud:/var/www/html:ro
+    depends_on:
+      - app
+    networks:
+      - proxy
+      - default
+
+  cron:
+    build: ./app
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db:
+  nextcloud:
+  html:
+
+networks:
+  proxy:
+    name: proxy-manager_proxy_network
+    external: true
