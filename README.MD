@@ -4,7 +4,6 @@
 
 This repo contains custom configurations for running nextcloud fpm + postgresql + nginx and nginx-proxy-manager + LE as separate container. It was done by request of a random person over the internet, so I did not go too hard on documentation. There are also other ways to do this, but this one is the one I'm using.
 
-Table of contents:
 - [Requirements:](#requirements)
 - [Setup:](#setup)
   - [Environment variables](#environment-variables)
