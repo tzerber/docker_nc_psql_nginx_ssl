@@ -1,16 +1,26 @@
+
+
 # Nextcloud fpm with PostgreSQL and nginx, nginx-proxy-manager with LetsEncrypt example on amd64 Linux 
 
 This repo contains custom configurations for running nextcloud fpm + postgresql + nginx and nginx-proxy-manager + LE as separate container. It was done by request of a random person over the internet, so I did not go too hard on documentation. There are also other ways to do this, but this one is the one I'm using.
 
+Table of contents:
+- [Requirements:](#requirements)
+- [Setup:](#setup)
+  - [Environment variables](#environment-variables)
+  - [Basic Proxy configuration](#basic-proxy-configuration)
+  - [Nextcloud configuration](#nextcloud-configuration)
+  - [OnlyOffice Document server](#onlyoffice-document-server)
+
 > [!WARNING]  
 > At time of publishing this repository there is a known "misalignment of view" between the majority of browsers + web-servers and IANA on the topic of js/mjs files that causes issues with Nextcloud itself. I will not go in much detauls, but after a while this repo will become obsolete. I will try to respond on requests, but don't expect me to maintain this.
 
-# Requirements: 
+# Requirements
 - [ ] Valid domain name with ability to change DNS settings / subdomains.
 - [ ] Docker version 24.0.7 or newer.
 - [ ] Docker Compose version v2.21.0 or newer.
 
-# Setup: 
+# Setup
 Open a terminal as root and clone this repo in a folder where the containers will be stored. 
 
 ```bash
@@ -24,7 +34,7 @@ A good suggestion is to have the the docker host having a static IP inside the n
 >The nginx-proxy-manager container uses port 81 for the web-management interface. 
 > Port 81 on the docker host should not be accessible from the internet for safety reasons.
 
-## Environment variables:
+## Environment variables
 Edit the configurations for nextcloud in the following file:
 
 `nextcloud\db.env` : 
@@ -37,7 +47,7 @@ POSTGRES_USER=nextcloud
 > [!IMPORTANT]  
 > There are also other configurations inside the compose files, nginx.conf and mime-types. They are not the default ones, and include custom configurations from my own instances based on experience. After some time nginx.conf and it's Dockerfile will need update once Nginx updates the mjs mime-type, but that's out of scope for this documentation. Same thing applies to Nextcloud's Dockerfile, once the check for php-bz2 is fixed the Dockerfile will need edit as well. Both of these exists because of NC28.0.1 so there shouldn't be any problems for now. 
 ---
-## Basic Proxy configuration:
+## Basic Proxy configuration
 
 In the terminal go to the proxy container and start it.
 ```bash 
