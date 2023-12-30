@@ -1,9 +1,9 @@
-# Nextcloud fpm with PostgreSQL and nginx, nginx-proxy with LetsEncrypt example on amd64 Linux 
+# Nextcloud fpm with PostgreSQL and nginx, nginx-proxy-manager with LetsEncrypt example on amd64 Linux 
 
 This repo contains custom configurations for running nextcloud fpm + postgresql + nginx and nginx-proxy-manager + LE as separate container. It was done by request of a random person over the internet, so I did not go too hard on documentation. There are also other ways to do this, but this one is the one I'm using.
 
 > [!WARNING]  
-> At time of publishing this repository there is a known "misalignment of view" between the majority of browsers + web-servers and IANA on the topic of js/mjs files that causes issues with Nextcloud itself. I will not go in much detauls, but after a while this repo will become obsolette. I will try to respond on requests, but don't expect me to maintain this.
+> At time of publishing this repository there is a known "misalignment of view" between the majority of browsers + web-servers and IANA on the topic of js/mjs files that causes issues with Nextcloud itself. I will not go in much detauls, but after a while this repo will become obsolete. I will try to respond on requests, but don't expect me to maintain this.
 
 # Requirements: 
 - [ ] Valid domain name with ability to change DNS settings / subdomains.
@@ -15,10 +15,10 @@ Open a terminal as root and clone this repo in a folder where the containers wil
 
 ```bash
 mkdir docker-stuff && cd docker-stuff
-git clone <repo> .
+git clone https://github.com/tzerber/docker_nc_psql_nginx_ssl.git .
 ```
 
-A good suggestion is to have the the docker host having a static IP inside the network behind the firewall/nat. Forward port 80 and 443 from the internet to the IP of the docker host. Since this is very different depending on the network setup, this documentation will not go into detauls there.
+A good suggestion is to have the the docker host having a static IP inside the network behind the firewall/nat. Forward port 80 and 443 from the internet to the IP of the docker host. Since this is very different depending on the network setup, this documentation will not go into details there.
 
 > [!IMPORTANT] 
 >The nginx-proxy-manager container uses port 81 for the web-management interface. 
@@ -35,7 +35,7 @@ POSTGRES_DB=nextcloud
 POSTGRES_USER=nextcloud
 ```
 > [!IMPORTANT]  
-> There are also other configurations inside the compose files, nginx.conf and mime-types. They are not the default ones, and include custom configurations from my own instances based on experience. After some time nginx.conf and it's Dockerfile will need update once Nginx updates the mjs mime-type, but that's out of scope for this documentation. Same thing applies to Nextcloud's Dockerfile, once the check for php-bz2 is fixed the Dockerfile will need edit as well. Both of these exists because of NC28.0.1 so there shouldnt be any problems for now. 
+> There are also other configurations inside the compose files, nginx.conf and mime-types. They are not the default ones, and include custom configurations from my own instances based on experience. After some time nginx.conf and it's Dockerfile will need update once Nginx updates the mjs mime-type, but that's out of scope for this documentation. Same thing applies to Nextcloud's Dockerfile, once the check for php-bz2 is fixed the Dockerfile will need edit as well. Both of these exists because of NC28.0.1 so there shouldn't be any problems for now. 
 ---
 ## Basic Proxy configuration:
 
