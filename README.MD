@@ -12,7 +12,7 @@ This repo contains custom configurations for running nextcloud fpm + postgresql 
   - [OnlyOffice Document server](#onlyoffice-document-server)
 
 > [!WARNING]  
-> At time of publishing this repository there is a known "misalignment of view" between the majority of browsers + web-servers and IANA on the topic of js/mjs files that causes issues with Nextcloud itself. I will not go in much detauls, but after a while this repo will become obsolete. I will try to respond on requests, but don't expect me to maintain this.
+> At time of publishing this repository there is a known "misalignment of view" between the majority of browsers + web-servers and IANA on the topic of js/mjs files that causes issues with Nextcloud itself. I will not go in much details, but after a while this repo will become obsolete. I will try to respond on requests, but don't expect me to maintain this.
 
 # Requirements
 - [ ] Valid domain name with ability to change DNS settings / subdomains.
