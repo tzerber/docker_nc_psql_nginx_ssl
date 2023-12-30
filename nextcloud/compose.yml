@@ -69,7 +69,6 @@ services:
 volumes:
   db:
   nextcloud:
-  html:
 
 networks:
   proxy:
