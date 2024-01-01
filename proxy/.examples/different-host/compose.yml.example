@@ -1,0 +1,26 @@
+services:
+  example:
+    image: nginx
+    container_name: example_nginx2
+    hostname: example2
+    restart: always
+    volumes:
+      - example:/usr/local/share/example
+    environment:
+      - EXAMPLE3=example1
+      - EXAMPLE3=example2
+      - EXAMPLE3=example3
+    ports:
+      - 4321:80
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    networks:
+      - default
+
+volumes:
+  example:
+
+networks:
+  default:

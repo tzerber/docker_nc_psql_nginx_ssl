@@ -1,0 +1,26 @@
+services:
+  example:
+    image: nginx
+    container_name: example_nginx
+    hostname: example
+    restart: always
+    volumes:
+      - example:/usr/local/share/example
+    environment:
+      - EXAMPLE3=example1
+      - EXAMPLE3=example2
+      - EXAMPLE3=example3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    networks:
+      - proxy
+
+volumes:
+  example:
+
+networks:
+  proxy:
+    name: proxy-manager_proxy_network
+    external: true
